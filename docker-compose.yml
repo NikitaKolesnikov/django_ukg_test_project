@@ -1,0 +1,29 @@
+version: '3'
+services:
+  ukg_restaurant:
+    command: "pipenv run python manage.py runserver 0.0.0.0:8000"
+    build:
+      context: ./
+    depends_on:
+      - db
+    env_file:
+      - env/app.dev.env
+      - env/db.dev.env
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    networks:
+      - ukg-restaurant-net
+  db:
+    image: postgres:latest
+    restart: always
+    env_file:
+      - env/db.dev.env
+    ports:
+      - "5432:5432"
+    networks:
+      - ukg-restaurant-net
+
+networks:
+  ukg-restaurant-net:

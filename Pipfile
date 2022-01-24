@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+Django = "==4.0.1"
+psycopg2-binary = "==2.9.3"
+djangorestframework = "==3.13.1"
+django-cors-headers = "==3.11.0"
+django-filter = "==2.4.0"
+django-rest-swagger = "==2.2.0"
+python-decouple = "==3.5"
+tzdata = "==2021.5"
+
+[dev-packages]
+coverage = "==5.3.1"
+mock = "==4.0.3"
+pylint = "==2.7.1"
+pylint-quotes = "==0.2.1"
+pytest-django = "==4.1.0"
+pytest-xdist = "==2.1.0"
+factory-boy = "==3.2.0"
+mypy = "==0.800"
+black = "==19.10b0"
+ipdb = "==0.13.4"
+ipython = "==7.20.0"
+pre-commit = "==2.9.3"
+
+[requires]
+python_version = "3.8"
