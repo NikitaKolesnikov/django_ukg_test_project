@@ -1,0 +1,53 @@
+default_language_version:
+  python: python3.8
+
+repos:
+  - repo: https://github.com/psf/black
+    rev: 20.8b1
+    hooks:
+      - id: black
+        exclude: >
+          (?x)^(
+              .*\/migrations\/.*|
+              ^src/wsgi.py$|
+              ^src/asgi.py$|
+              ^manage.py$|
+              ^src/settings/local.py
+          )$
+        # --fast disables ast check, which we'll add a check for later.
+        args: ["--fast"]
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.8.4
+    hooks:
+      - id: flake8
+        exclude: >
+          (?x)^(
+              .*\/migrations\/.*|
+              ^src/wsgi.py$|
+              ^src/asgi.py$|
+              ^manage.py$|
+              ^src/settings/local.py
+          )$
+        args: [
+            "--per-file-ignores=__init__.py:F401",
+             "--line-length=99"
+        ]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.3.0
+    hooks:
+      - id: check-yaml
+      - id: check-merge-conflict
+      - id: detect-aws-credentials
+      - id: detect-private-key
+      - id: double-quote-string-fixer
+      - id: end-of-file-fixer
+      - id: name-tests-test
+        args: ["--django"]
+        exclude: "^(.*base.py|.*factories.py)$"
+      - id: pretty-format-json
+        args: ["--autofix", "--no-sort-keys"]
+      - id: requirements-txt-fixer
+      - id: trailing-whitespace
+      - id: check-ast

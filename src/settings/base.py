@@ -13,10 +13,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-PUBLIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, "..", "media"))
+PUBLIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', 'media'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.restaurant.apps.RestaurantConfig',
 ]
 
 MIDDLEWARE = [
@@ -76,17 +78,17 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASE_STATEMENT_TIMEOUT_MS = config("DATABASE_STATEMENT_TIMEOUT_MS", default=60000)
+DATABASE_STATEMENT_TIMEOUT_MS = config('DATABASE_STATEMENT_TIMEOUT_MS', default=60000)
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": config("POSTGRES_DB", default="postgres"),
-        "USER": config("POSTGRES_USER", default="postgres"),
-        "PASSWORD": config("POSTGRES_PASSWORD", default="postgres"),
-        "HOST": config("DB_HOST", default="localhost"),
-        "PORT": config("POSTGRES_PORT", default=5432),
-        "OPTIONS": {
-            "options": f"-c statement_timeout={DATABASE_STATEMENT_TIMEOUT_MS}",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('POSTGRES_DB', default='postgres'),
+        'USER': config('POSTGRES_USER', default='postgres'),
+        'PASSWORD': config('POSTGRES_PASSWORD', default='postgres'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('POSTGRES_PORT', default=5432),
+        'OPTIONS': {
+            'options': f'-c statement_timeout={DATABASE_STATEMENT_TIMEOUT_MS}',
         },
     }
 }
@@ -135,18 +137,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Django Rest FrameWork Settings
-REST_DATE_FORMAT = "%d-%m-%Y"
-REST_DATETIME_FORMAT = "%d-%m-%Y %H:%M %Z"
+REST_DATE_FORMAT = '%d-%m-%Y'
+REST_DATETIME_FORMAT = '%d-%m-%Y %H:%M %Z'
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ("service.auth.TendJSONWebTokenAuthentication",),
-    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
-    "DEFAULT_PERMISSION_CLASSES": ("service.permissions.ScopeJWTPermission",),
-    "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
-    "DEFAULT_PAGINATION_CLASS": "apps.utils.pagination.TendPagination",
-    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
-    "TEST_REQUEST_DEFAULT_FORMAT": "json",
-    "DATE_FORMAT": REST_DATE_FORMAT,
-    "DATETIME_FORMAT": REST_DATETIME_FORMAT,
-    "PAGE_SIZE": 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': ('service.auth.TendJSONWebTokenAuthentication',),
+    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',),
+    'DEFAULT_PERMISSION_CLASSES': ('service.permissions.ScopeJWTPermission',),
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    'DEFAULT_PAGINATION_CLASS': 'apps.utils.pagination.TendPagination',
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DATE_FORMAT': REST_DATE_FORMAT,
+    'DATETIME_FORMAT': REST_DATETIME_FORMAT,
+    'PAGE_SIZE': 10,
 }

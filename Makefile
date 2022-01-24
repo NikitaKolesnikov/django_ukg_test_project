@@ -26,6 +26,10 @@ stop:
 shell:
 	@docker-compose run ${APP_NAME} ${ENV_RUN} python manage.py shell
 
+.PHONY: shell
+shell:
+	@docker-compose run ${APP_NAME} ${ENV_RUN} python manage.py s
+
 .PHONY: down
 down:
 	@docker-compose down -v

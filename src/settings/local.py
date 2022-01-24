@@ -4,7 +4,7 @@ Imports all base settings and overrides some of them to enhance local developmen
 from .base import *  # NOQA
 
 DEBUG = True
-TEMPLATES[0]["OPTIONS"]["debug"] = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testdjango.com', '0.0.0.0']
 # SWAGGER_SETTINGS["VALIDATOR_URL"] = "http://0.0.0.0:8000"
 
@@ -39,8 +39,8 @@ LOGGING = {
         'mail_admins': {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
     },
     'loggers': {
         'django': {
@@ -60,9 +60,11 @@ LOGGING = {
             'handlers': ['console'],
         },
         'django.db.backends': {
-            'handlers': ['console', ],
+            'handlers': [
+                'console',
+            ],
             'level': 'DEBUG',
             'propagate': False,
         },
-    }
+    },
 }
