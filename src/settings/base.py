@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.restaurant.apps.RestaurantConfig',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

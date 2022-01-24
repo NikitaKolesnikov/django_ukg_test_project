@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from .documentation import urlpatterns as docs
 
 from apps.restaurant.urls import restaurant_api_urls
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api-docs/', include(docs)),
     path('api/restaurant/', include(restaurant_api_urls, namespace='restaurant-api')),
 ]
