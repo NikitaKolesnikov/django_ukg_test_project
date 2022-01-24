@@ -141,13 +141,12 @@ REST_DATE_FORMAT = '%d-%m-%Y'
 REST_DATETIME_FORMAT = '%d-%m-%Y %H:%M %Z'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ('service.auth.TendJSONWebTokenAuthentication',),
-    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',),
-    'DEFAULT_PERMISSION_CLASSES': ('service.permissions.ScopeJWTPermission',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
-    'DEFAULT_PAGINATION_CLASS': 'apps.utils.pagination.TendPagination',
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DATE_FORMAT': REST_DATE_FORMAT,
     'DATETIME_FORMAT': REST_DATETIME_FORMAT,
     'PAGE_SIZE': 10,

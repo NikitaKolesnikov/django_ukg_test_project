@@ -3,12 +3,9 @@ Imports all base settings and overrides some of them to enhance local developmen
 """
 from .base import *  # NOQA
 
-DEBUG = True
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'testdjango.com', '0.0.0.0']
 # SWAGGER_SETTINGS["VALIDATOR_URL"] = "http://0.0.0.0:8000"
-
-# MIDDLEWARE.insert(7, "apps.utils.middleware.query_log_middleware")
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'

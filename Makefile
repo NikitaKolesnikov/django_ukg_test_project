@@ -26,9 +26,6 @@ stop:
 shell:
 	@docker-compose run ${APP_NAME} ${ENV_RUN} python manage.py shell
 
-.PHONY: shell
-shell:
-	@docker-compose run ${APP_NAME} ${ENV_RUN} python manage.py s
 
 .PHONY: down
 down:
@@ -51,15 +48,10 @@ typecheck:
 	@${DCET} ${ENV_RUN} mypy --ignore-missing-imports --config-file=conf/mypy.ini $(PROJECT_PY_FILES)
 	@echo Done typecheck
 
-.PHONE: build-for-test
-build-for-test:
-	@docker-compose -f docker-compose-test.yml build
-	@docker-compose -f docker-compose-test.yml run ${APP_NAME} pipenv run python manage.py migrate
-
 .PHONY: test
 test:
-	@docker-compose -f docker-compose-test.yml up ${APP_NAME}
-	@docker-compose -f docker-compose-test.yml stop db-test
+	@docker-compose run ${APP_NAME} pipenv run python manage.py test
+	@docker-compose stop db
 
 .PHONE: test-one
 test-one:
