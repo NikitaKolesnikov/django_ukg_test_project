@@ -25,3 +25,20 @@ class RestaurantListAPITestCase(BaseRestaurantAPITestCase):
         self.assertIn('id', keys)
         self.assertIn('name', keys)
         self.assertIn('description', keys)
+
+    def test_search_filter(self) -> None:
+        desired_restaurant = RestaurantFactory(name='ABCD restaurant')
+        RestaurantFactory(name='another restaurant with weird name')
+        response: Response = self.client.get(self.list_url, {'search': 'ABCD'})
+
+        self.assertEqual(len(response.data), 1)
+        self.assertEqual(response.data[0]['id'], desired_restaurant.id)
+
+    def test_random_filter(self) -> None:
+        response_1: Response = self.client.get(self.list_url, {'randomize': True})
+        response_2: Response = self.client.get(self.list_url, {'randomize': True})
+
+        self.assertEqual(len(response_2.data), len(response_1.data))
+        self.assertNotEqual(
+            [x['id'] for x in response_1.data], [x['id'] for x in response_2.data]
+        )
