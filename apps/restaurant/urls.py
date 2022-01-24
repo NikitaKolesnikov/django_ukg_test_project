@@ -2,6 +2,7 @@ from django.urls import path
 
 from apps.restaurant import views
 
+
 restaurant_api_urls = (
     [
         path(
@@ -10,7 +11,7 @@ restaurant_api_urls = (
             name='list-create',
         ),
         path(
-            '<int:pk>',
+            '<str:slug>',
             views.RestaurantRetrieveUpdateDestroyView.as_view(),
             name='retrieve-update-destroy',
         ),

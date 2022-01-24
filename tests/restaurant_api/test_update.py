@@ -3,6 +3,7 @@ from typing import Dict
 from rest_framework import status
 from rest_framework.response import Response
 
+from tests.factories import RestaurantFactory
 from tests.restaurant_api.base import BaseRestaurantAPITestCase
 
 
@@ -43,6 +44,19 @@ class RestaurantUpdateAPITestCase(BaseRestaurantAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('name', response.data.keys())
         self.assertIn('description', response.data.keys())
+
+    def test_update_unique_name(self) -> None:
+        existing_restaurant = RestaurantFactory(name='Existing restaurant 3')
+        response: Response = self.client.put(
+            self.detail_url,
+            data={
+                'name': existing_restaurant.name,
+                'description': 'Test update with unique name: description',
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('name', response.data.keys())
 
 
 class RestaurantPartialUpdateAPITestCase(BaseRestaurantAPITestCase):

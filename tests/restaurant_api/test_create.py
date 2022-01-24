@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from apps.restaurant.models import Restaurant
+from tests.factories import RestaurantFactory
 from tests.restaurant_api.base import BaseRestaurantAPITestCase
 
 
@@ -42,3 +43,16 @@ class RestaurantCreateAPITestCase(BaseRestaurantAPITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('name', response.data.keys())
         self.assertIn('description', response.data.keys())
+
+    def test_unique_name(self) -> None:
+        existing_restaurant = RestaurantFactory(name='Existing restaurant 1')
+        response: Response = self.client.post(
+            self.list_url,
+            data={
+                'name': existing_restaurant.name,
+                'description': 'Test create with unique name: description',
+            },
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('name', response.data.keys())

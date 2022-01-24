@@ -10,9 +10,7 @@ class RestarauntFilter(django_filters.FilterSet):
 
     class Meta:
         model = Restaurant
-        fields = [
-            'randomize',
-        ]
+        fields = ['randomize']
 
-    def filter_randomize(self, queryset, name, value) -> QuerySet:
+    def filter_randomize(self, queryset: QuerySet, name: str, value: bool) -> QuerySet:
         return queryset.order_by('?') if value else queryset

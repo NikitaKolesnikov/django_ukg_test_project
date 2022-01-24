@@ -1,4 +1,3 @@
-from django.db.models import Max
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.response import Response
@@ -23,10 +22,11 @@ class RestaurantDetailAPITestCase(BaseRestaurantAPITestCase):
             response.data['description'], self.default_restaurant.description
         )
 
-    def test_wrong_id(self) -> None:
-        max_id: int = Restaurant.objects.filter().aggregate(max_id=Max('id'))['max_id']
+    def test_wrong_name(self) -> None:
+        last_slug: str = Restaurant.objects.filter().last().slug
         url: str = reverse(
-            'restaurant-api:retrieve-update-destroy', kwargs={'pk': max_id + 1}
+            'restaurant-api:retrieve-update-destroy',
+            kwargs={'slug': f'${last_slug}_wrong_name_test'},
         )
         response: Response = self.client.get(url)
 

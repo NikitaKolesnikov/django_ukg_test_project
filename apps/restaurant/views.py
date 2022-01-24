@@ -12,12 +12,11 @@ class RestaurantListCreateView(generics.ListCreateAPIView):
     serializer_class = serializers.RestaurantSerializer
     filter_backends = (SearchFilter, DjangoFilterBackend)
     filterset_class = filters.RestarauntFilter
-    search_fields = [
-        'name',
-    ]
+    search_fields = ['name']
 
 
 class RestaurantRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     model = Restaurant
     queryset = Restaurant.objects.all()
     serializer_class = serializers.RestaurantSerializer
+    lookup_field = 'slug'
